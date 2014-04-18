@@ -1,3 +1,6 @@
+getwd()
+setwd("~/Desktop/Coursera//2014_R_programming/ProgrammingAssignment2/")
+
 ## Put comments here that give an overall description of what your
 ## functions do
 
