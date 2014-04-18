@@ -1,18 +1,34 @@
-getwd()
-setwd("~/Desktop/Coursera//2014_R_programming/ProgrammingAssignment2/")
+## This function caches a time-consuming computation.
+## It contains two parts: the first part creates a matrix, 
+## including the caching option; the second part computes 
+## the inverse of the matrix while checking the cache.
 
-## Put comments here that give an overall description of what your
-## functions do
 
-## Write a short comment describing this function
+## Creates matrix as a 'special list' with 4 elements
+## (set, get, setInverse, getInverse).
 
 makeCacheMatrix <- function(x = matrix()) {
-
+        m <- NULL
+        set <- function() {
+                x <<- y
+                m <<- NULL
+        }
+        get <- function() x
+        setInverse <- function(solve) m <<- solve
+        getInverse <- function () m
+        list( set = set, get = get,
+              setInverse = setInverse, getInverse = getInverse)
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+## Computes inverse of matrix only if it isn't stored in cache m.
+cacheSolve <- function(x, ...){
+        m <- x$getInverse()
+        if(!is.null(m)) {
+                message("getting cached data")
+                return(m)
+        }
+        data <- x$get()
+        m <- solve(data, ...)
+        x$setInverse(m)
+        m
 }
