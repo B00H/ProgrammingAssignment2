@@ -9,7 +9,7 @@
 
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL
-        set <- function() {
+        set <- function(y) {
                 x <<- y
                 m <<- NULL
         }
@@ -20,7 +20,10 @@ makeCacheMatrix <- function(x = matrix()) {
               setInverse = setInverse, getInverse = getInverse)
 }
 
-## Computes inverse of matrix only if it isn't stored in cache m.
+## Computes inverse of matrix only if it isn't stored yet
+## in cache m. If cached, message is returned in addition to
+## inverse matrix. 
+
 cacheSolve <- function(x, ...){
         m <- x$getInverse()
         if(!is.null(m)) {
